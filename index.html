@@ -1,0 +1,58 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Mozilla Store - SimpleCart(JS) Demo</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="simpleCart.js"></script>
+<script type="text/javascript">
+    simpleCart({
+        cartColumns: [
+            { attr: "name" , label: "Name" } ,
+            { attr: "price" , label: "Price", view: 'currency' } ,
+        ],
+        checkout: { 
+          type: "PayPal" , 
+          email: "freelancerpush@gmail.com" ,
+          sandbox: true , 
+          method: "GET" , 
+          success: "success.html" , 
+          cancel: "http://localhost/simplejs/cancel.html" 
+      } 
+    });
+    function doalert(checkboxElem) {
+      if (checkboxElem.checked) {
+        var myItem = simpleCart.add({name:checkboxElem.value,price:checkboxElem.getAttribute('data-price')});
+      } else {
+        var myItem = simpleCart.add({name:checkboxElem.value,price:checkboxElem.getAttribute('data-price')});
+        simpleCart.quantity();
+        myItem.remove();
+      }
+    }
+</script>
+<link href="css/styles.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+<div id="wrapper">
+  <div id="container">
+    <p class="alignRight"> Cart: <span class="simpleCart_total"></span> (<span class="simpleCart_quantity"></span> items) <a href="javascript:;" class="simpleCart_empty">empty cart</a> <br />
+    </p>
+    <div class="simpleCart_items"></div>
+    
+    <input type="checkbox" name="Wordpress" onchange="doalert(this,this.getAttribute('data-price'))" value="Wordpress Developemnt" data-price="100.00" />Wordpress
+    <input type="checkbox" name="Wordpress" onchange="doalert(this,this.getAttribute('data-price'))" value="Magento Developemnt" data-price="300.00" />Magento
+    
+    <div class="clear">&nbsp;</div>
+   
+    
+    
+    <div id="cartTotal">Total: <span class="simpleCart_grandTotal"></span> <a href="javascript:;" class="simpleCart_checkout">checkout</a> 
+    </div>
+    
+    </div>
+    
+  <div class="clear">&nbsp;</div>
+</div>
+</body>
+</html>
